@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splash_fragment">
+
+    <fragment
+        android:id="@+id/splash_fragment"
+        android:name="com.ironclad.wedigittest.view.fragments.SplashFragment"
+        android:label="@string/fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/goToFeed"
+            app:destination="@id/feed_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/feed_fragment"
+        android:name="com.ironclad.wedigittest.view.fragments.FeedFragment"
+        android:label="@string/fragment_feed"
+        tools:layout="@layout/fragment_feed">
+        <action
+            android:id="@+id/goToDetailMovie"
+            app:destination="@id/detail_movie_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detail_movie_fragment"
+        android:name="com.ironclad.wedigittest.view.fragments.MovieDetailFragment"
+        android:label="@string/fragment_detail_movie"
+        tools:layout="@layout/fragment_detail_movie" />
 
 </navigation>

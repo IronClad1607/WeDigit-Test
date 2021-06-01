@@ -59,6 +59,7 @@ dependencies {
     //Material Design and UI
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    implementation "com.intuit.sdp:sdp-android:$intuit_version"
 
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
