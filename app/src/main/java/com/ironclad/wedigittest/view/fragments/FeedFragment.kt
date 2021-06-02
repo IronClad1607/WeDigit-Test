@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.ironclad.wedigittest.BuildConfig
 import com.ironclad.wedigittest.databinding.FragmentFeedBinding
@@ -76,7 +75,7 @@ class FeedFragment : Fragment(), OnItemClickListener {
                     binding?.apply {
                         progress.visibility = View.GONE
                         recyclerMovies.visibility = View.VISIBLE
-                        Snackbar.make(rootView, "Somethig went wrong", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(rootView, "Something went wrong", Snackbar.LENGTH_SHORT).show()
                     }
                 }
             }
