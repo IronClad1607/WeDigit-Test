@@ -1,5 +1,6 @@
 package com.ironclad.wedigittest.data.api
 
+import com.ironclad.wedigittest.data.model.CreditList
 import com.ironclad.wedigittest.data.model.Movie
 import com.ironclad.wedigittest.data.model.MovieList
 import retrofit2.Response
@@ -21,8 +22,8 @@ interface ApiService {
     ): Response<Movie>
 
     @GET("/3/movie/{movie_id}/credits")
-    suspend fun getCreditResponse(
+    suspend fun getCreditDetails(
         @Path("movie_id") movieId: Int,
         @QueryMap queries: Map<String, Any>
-    )
+    ): Response<CreditList>
 }

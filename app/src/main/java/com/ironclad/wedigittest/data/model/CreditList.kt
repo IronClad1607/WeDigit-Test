@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CastList(
+data class CreditList(
     @Json(name = "cast")
     var cast: List<Cast>? = null,
     @Json(name = "crew")
