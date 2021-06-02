@@ -8,6 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
 
+@JvmSuppressWildcards
 interface ApiService {
 
     @GET("/3/movie/popular")
