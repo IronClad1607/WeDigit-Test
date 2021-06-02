@@ -1,23 +1,34 @@
 package com.ironclad.wedigittest.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.ironclad.wedigittest.BuildConfig
 import com.ironclad.wedigittest.databinding.FragmentFeedBinding
 import com.ironclad.wedigittest.utils.Status
+import com.ironclad.wedigittest.view.adapters.OnItemClickListener
+import com.ironclad.wedigittest.view.adapters.PopularMovieAdapter
 import com.ironclad.wedigittest.view.viewmodels.FeedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FeedFragment : Fragment() {
+class FeedFragment : Fragment(), OnItemClickListener {
     private var binding: FragmentFeedBinding? = null
     private val viewModel by viewModels<FeedViewModel>()
+    private lateinit var mAdapter: PopularMovieAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mAdapter = PopularMovieAdapter(requireContext(), this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +43,14 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding?.recyclerMovies?.apply {
+            adapter = mAdapter
+            layoutManager =
+                GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
+        }
+
         val queries = HashMap<String, Any>()
-        queries["api_key"] = apiKey
+        queries["api_key"] = BuildConfig.API_KEY
         queries["page"] = 1
         queries["language"] = "en-us"
 
@@ -45,12 +62,7 @@ class FeedFragment : Fragment() {
                     binding?.progress?.visibility = View.GONE
                     binding?.recyclerMovies?.visibility = View.VISIBLE
                     it.data.let { res ->
-                        Log.d(
-                            "PUI3", """
-                            Current Page: ${res?.page}
-                            Total Page: ${res?.totalPages}
-                        """.trimIndent()
-                        )
+                        mAdapter.submitList(res?.movieListItems)
                     }
                 }
                 Status.LOADING -> {
@@ -75,7 +87,7 @@ class FeedFragment : Fragment() {
         super.onDestroy()
     }
 
-    companion object {
-        const val apiKey = BuildConfig.API_KEY
+    override fun onItemClick(id: Int) {
+        findNavController().navigate(FeedFragmentDirections.goToDetailMovie(id))
     }
 }

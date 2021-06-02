@@ -14,4 +14,6 @@ data class MovieListItem(
     var posterPath: String? = null,
     @Json(name = "title")
     var title: String? = null,
+    @Json(name = "release_date")
+    var releaseDate: String? = null
 )

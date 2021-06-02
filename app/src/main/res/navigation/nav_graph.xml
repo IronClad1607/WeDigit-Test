@@ -29,6 +29,11 @@
         android:id="@+id/detail_movie_fragment"
         android:name="com.ironclad.wedigittest.view.fragments.MovieDetailFragment"
         android:label="@string/fragment_detail_movie"
-        tools:layout="@layout/fragment_detail_movie" />
+        tools:layout="@layout/fragment_detail_movie">
+        <argument
+            android:name="movie_id"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>
