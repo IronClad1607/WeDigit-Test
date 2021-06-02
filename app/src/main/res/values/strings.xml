@@ -3,4 +3,6 @@
     <string name="fragment_detail_movie">Fragment Detail Movie</string>
     <string name="fragment_splash">Splash</string>
     <string name="fragment_feed">Feed</string>
+    <string name="the_moviedb_app">The MovieDB App</string>
+    <string name="popular_movies">Popular Movies</string>
 </resources>
