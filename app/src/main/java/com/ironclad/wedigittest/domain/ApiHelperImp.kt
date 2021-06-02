@@ -12,4 +12,9 @@ class ApiHelperImp @Inject constructor(
 
     override suspend fun getMovieDetails(movieId: Int, queries: Map<String, Any>) =
         apiService.getMovieDetails(movieId, queries)
+
+    override suspend fun getCreditDetails(
+        movieId: Int,
+        queries: Map<String, Any>
+    ) = apiService.getCreditDetails(movieId, queries)
 }
