@@ -5,4 +5,5 @@
     <string name="fragment_feed">Feed</string>
     <string name="the_moviedb_app">The MovieDB App</string>
     <string name="popular_movies">Popular Movies</string>
+    <string name="poster_of_the_movie">Poster of the Movie</string>
 </resources>
