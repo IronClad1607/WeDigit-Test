@@ -9,8 +9,4 @@ class ApiRepository @Inject constructor(
     suspend fun getPopularMovies(queries: Map<String, Any>) = apiHelper.getPopularMovies(queries)
     suspend fun getMovieDetails(movieId: Int, queries: Map<String, Any>) =
         apiHelper.getMovieDetails(movieId, queries)
-    suspend fun getCreditDetails(
-        movieId: Int,
-        queries: Map<String, Any>
-    ) = apiHelper.getCreditDetails(movieId, queries)
 }

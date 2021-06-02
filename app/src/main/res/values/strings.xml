@@ -17,4 +17,5 @@
     <string name="budget">Budget</string>
     <string name="runtime">Runtime</string>
     <string name="production_companies">Production Companies</string>
+    <string name="backdrop_poster">Backdrop Poster</string>
 </resources>

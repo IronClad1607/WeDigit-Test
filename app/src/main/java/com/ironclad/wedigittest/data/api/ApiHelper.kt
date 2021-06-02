@@ -8,5 +8,4 @@ import retrofit2.Response
 interface ApiHelper {
     suspend fun getPopularMovies(queries: Map<String, Any>): Response<MovieList>
     suspend fun getMovieDetails(movieId: Int, queries: Map<String, Any>): Response<Movie>
-    suspend fun getCreditDetails(movieId: Int, queries: Map<String, Any>): Response<CreditList>
 }

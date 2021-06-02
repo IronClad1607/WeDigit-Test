@@ -21,10 +21,4 @@ interface ApiService {
         @Path("movie_id") movieId: Int,
         @QueryMap queries: Map<String, Any>
     ): Response<Movie>
-
-    @GET("/3/movie/{movie_id}/credits")
-    suspend fun getCreditDetails(
-        @Path("movie_id") movieId: Int,
-        @QueryMap queries: Map<String, Any>
-    ): Response<CreditList>
 }

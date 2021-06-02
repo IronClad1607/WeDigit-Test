@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
+import com.ironclad.wedigittest.BuildConfig
+import com.ironclad.wedigittest.data.model.Movie
 import com.ironclad.wedigittest.databinding.FragmentDetailMovieBinding
+import com.ironclad.wedigittest.utils.Status
 import com.ironclad.wedigittest.view.viewmodels.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +29,43 @@ class MovieDetailFragment : Fragment() {
     ): View? {
         binding = FragmentDetailMovieBinding.inflate(inflater, container, false)
 
+        val queries = HashMap<String, Any>()
+        queries["api_key"] = BuildConfig.API_KEY
+        queries["language"] = "en-US"
+
+        viewModel.getMovieDetails(args.movieId, queries)
+
         return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.movieDetails.observe(requireActivity(), {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    binding?.progress?.visibility = View.GONE
+                    binding?.content?.visibility = View.VISIBLE
+                    inflateValues(it.data)
+                }
+                Status.LOADING -> {
+                    binding?.progress?.visibility = View.VISIBLE
+                    binding?.content?.visibility = View.GONE
+                }
+                Status.ERROR -> {
+                    binding?.progress?.visibility = View.GONE
+                    binding?.content?.visibility = View.GONE
+                    binding?.apply {
+                        Snackbar.make(rootView, "Something went wrong", Snackbar.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
+        })
+    }
+
+    private fun inflateValues(movie: Movie?) {
+
     }
 
     override fun onDestroy() {
