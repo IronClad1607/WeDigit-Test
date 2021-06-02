@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ironclad.wedigittest.databinding.FragmentDetailMovieBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieDetailFragment : Fragment() {
 
     private var binding: FragmentDetailMovieBinding? = null
