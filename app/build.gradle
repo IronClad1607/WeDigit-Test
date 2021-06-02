@@ -20,7 +20,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "API_KEY", "\"5d967c7c335764f39b1efbe9c5de9760\""
-        buildConfigField "String", "BASE_URL","\"https://api.themoviedb.org/\""
+        buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/\""
     }
 
     buildTypes {
@@ -79,6 +79,7 @@ dependencies {
     //Retrofit and Moshi
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     implementation "com.squareup.moshi:moshi:$moshi_version"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
 }
