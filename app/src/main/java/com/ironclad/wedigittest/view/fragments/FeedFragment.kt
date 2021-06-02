@@ -23,12 +23,10 @@ class FeedFragment : Fragment(), OnItemClickListener {
     private var binding: FragmentFeedBinding? = null
     private val viewModel by viewModels<FeedViewModel>()
     private lateinit var mAdapter: PopularMovieAdapter
-    private lateinit var mLayoutManager: GridLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAdapter = PopularMovieAdapter(requireContext(), this)
-        mLayoutManager = GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
     }
 
     override fun onCreateView(
@@ -46,7 +44,8 @@ class FeedFragment : Fragment(), OnItemClickListener {
 
         binding?.recyclerMovies?.apply {
             adapter = mAdapter
-            layoutManager = mLayoutManager
+            layoutManager =
+                GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
         }
 
         val queries = HashMap<String, Any>()
@@ -75,7 +74,8 @@ class FeedFragment : Fragment(), OnItemClickListener {
                     binding?.apply {
                         progress.visibility = View.GONE
                         recyclerMovies.visibility = View.VISIBLE
-                        Snackbar.make(rootView, "Something went wrong", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(rootView, "Something went wrong", Snackbar.LENGTH_SHORT)
+                            .show()
                     }
                 }
             }

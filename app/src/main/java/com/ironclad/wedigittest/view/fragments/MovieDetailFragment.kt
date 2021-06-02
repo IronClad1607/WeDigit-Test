@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.ironclad.wedigittest.BuildConfig
@@ -17,6 +18,7 @@ import com.ironclad.wedigittest.utils.Status
 import com.ironclad.wedigittest.utils.convertBudget
 import com.ironclad.wedigittest.utils.convertDate
 import com.ironclad.wedigittest.utils.convertRuntime
+import com.ironclad.wedigittest.view.adapters.CompanyAdapter
 import com.ironclad.wedigittest.view.viewmodels.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +28,12 @@ class MovieDetailFragment : Fragment() {
     private var binding: FragmentDetailMovieBinding? = null
     private val args: MovieDetailFragmentArgs by navArgs()
     private val viewModel by viewModels<MovieDetailViewModel>()
+    private lateinit var mAdapter: CompanyAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mAdapter = CompanyAdapter(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +53,12 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding?.rvPC?.apply {
+            adapter = mAdapter
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
 
         viewModel.movieDetails.observe(requireActivity(), {
             when (it.status) {
@@ -89,6 +103,7 @@ class MovieDetailFragment : Fragment() {
             tvTagLine.text = movie.tagline
             tvRelease.text = convertDate(movie.releaseDate)
             tvRuntimeDetails.text = "${movie.runtime} mins"
+            mAdapter.submitList(movie.productionCompanies)
         }
     }
 
