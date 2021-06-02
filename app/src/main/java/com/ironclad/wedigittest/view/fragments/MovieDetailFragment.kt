@@ -18,7 +18,9 @@ import com.ironclad.wedigittest.utils.Status
 import com.ironclad.wedigittest.utils.convertBudget
 import com.ironclad.wedigittest.utils.convertDate
 import com.ironclad.wedigittest.utils.convertRuntime
+import com.ironclad.wedigittest.view.adapters.CastAdapter
 import com.ironclad.wedigittest.view.adapters.CompanyAdapter
+import com.ironclad.wedigittest.view.adapters.CrewAdapter
 import com.ironclad.wedigittest.view.viewmodels.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,10 +31,14 @@ class MovieDetailFragment : Fragment() {
     private val args: MovieDetailFragmentArgs by navArgs()
     private val viewModel by viewModels<MovieDetailViewModel>()
     private lateinit var mAdapter: CompanyAdapter
+    private lateinit var mCastAdapter: CastAdapter
+    private lateinit var mCrewAdapter: CrewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAdapter = CompanyAdapter(requireContext())
+        mCastAdapter = CastAdapter(requireContext())
+        mCrewAdapter = CrewAdapter(requireContext())
     }
 
     override fun onCreateView(
@@ -47,6 +53,7 @@ class MovieDetailFragment : Fragment() {
         queries["language"] = "en-US"
 
         viewModel.getMovieDetails(args.movieId, queries)
+        viewModel.getCreditList(args.movieId, queries)
 
         return binding?.root
     }
@@ -60,12 +67,49 @@ class MovieDetailFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
 
+        binding?.rvCast?.apply {
+            adapter = mCastAdapter
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        binding?.rvCrew?.apply {
+            adapter = mCrewAdapter
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
+
         viewModel.movieDetails.observe(requireActivity(), {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding?.progress?.visibility = View.GONE
                     binding?.content?.visibility = View.VISIBLE
                     inflateValues(it.data)
+                }
+                Status.LOADING -> {
+                    binding?.progress?.visibility = View.VISIBLE
+                    binding?.content?.visibility = View.GONE
+                }
+                Status.ERROR -> {
+                    binding?.progress?.visibility = View.GONE
+                    binding?.content?.visibility = View.GONE
+                    binding?.apply {
+                        Snackbar.make(rootView, "Something went wrong", Snackbar.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
+        })
+
+        viewModel.creditList.observe(requireActivity(), {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    binding?.progress?.visibility = View.GONE
+                    binding?.content?.visibility = View.VISIBLE
+                    it.data.let { res ->
+                        mCastAdapter.submitList(res?.cast)
+                        mCrewAdapter.submitList(res?.crew)
+                    }
                 }
                 Status.LOADING -> {
                     binding?.progress?.visibility = View.VISIBLE
