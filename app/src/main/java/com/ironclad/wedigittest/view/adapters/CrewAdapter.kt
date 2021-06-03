@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.ironclad.wedigittest.BuildConfig
 import com.ironclad.wedigittest.R
 import com.ironclad.wedigittest.data.model.Crew
+import com.ironclad.wedigittest.databinding.ListItemCastCrewBinding
 import com.ironclad.wedigittest.databinding.ListItemFeedBinding
 
 class CrewAdapter(private val context: Context) :
@@ -29,13 +30,13 @@ class CrewAdapter(private val context: Context) :
     inner class CrewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrewViewHolder {
-        val binding = ListItemFeedBinding.inflate(LayoutInflater.from(context), parent, false)
+        val binding = ListItemCastCrewBinding.inflate(LayoutInflater.from(context), parent, false)
         return CrewViewHolder(binding.root)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CrewViewHolder, position: Int) {
-        ListItemFeedBinding.bind(holder.itemView).apply {
+        ListItemCastCrewBinding.bind(holder.itemView).apply {
             val people = getItem(position)
 
             textViewTitle.text = people.name
