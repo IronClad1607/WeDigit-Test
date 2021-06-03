@@ -39,11 +39,20 @@ class CastAdapter(private val context: Context) :
 
             textViewTitle.text = people.name
             textViewYear.text = people.character
-            Glide.with(context)
-                .load("${BuildConfig.IMAGE_BASE_URL}${people.profilePath}")
-                .centerCrop()
-                .placeholder(R.drawable.ic_profile)
-                .into(imageViewPoster)
+
+            if (people.profilePath != null) {
+                Glide.with(context)
+                    .load("${BuildConfig.IMAGE_BASE_URL}${people.profilePath}")
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_profile)
+                    .into(imageViewPoster)
+            } else {
+                Glide.with(context)
+                    .load(R.drawable.ic_profile)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_profile)
+                    .into(imageViewPoster)
+            }
         }
     }
 }

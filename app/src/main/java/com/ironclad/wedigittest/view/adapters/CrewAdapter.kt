@@ -13,7 +13,6 @@ import com.ironclad.wedigittest.BuildConfig
 import com.ironclad.wedigittest.R
 import com.ironclad.wedigittest.data.model.Crew
 import com.ironclad.wedigittest.databinding.ListItemCastCrewBinding
-import com.ironclad.wedigittest.databinding.ListItemFeedBinding
 
 class CrewAdapter(private val context: Context) :
     ListAdapter<Crew, CrewAdapter.CrewViewHolder>(object : DiffUtil.ItemCallback<Crew>() {
@@ -52,13 +51,13 @@ class CrewAdapter(private val context: Context) :
                     .load("${BuildConfig.IMAGE_BASE_URL}${people.profilePath}")
                     .centerCrop()
                     .placeholder(R.drawable.ic_profile)
-                    .load(imageViewPoster)
+                    .into(imageViewPoster)
             } else {
                 Glide.with(context)
                     .load(R.drawable.ic_profile)
                     .centerCrop()
                     .placeholder(R.drawable.ic_profile)
-                    .load(imageViewPoster)
+                    .into(imageViewPoster)
             }
         }
     }
