@@ -12,7 +12,6 @@ import com.ironclad.wedigittest.BuildConfig
 import com.ironclad.wedigittest.R
 import com.ironclad.wedigittest.data.model.Cast
 import com.ironclad.wedigittest.databinding.ListItemCastCrewBinding
-import com.ironclad.wedigittest.databinding.ListItemFeedBinding
 
 class CastAdapter(private val context: Context) :
     ListAdapter<Cast, CastAdapter.CastViewHolder>(object : DiffUtil.ItemCallback<Cast>() {
